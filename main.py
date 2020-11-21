@@ -13,21 +13,29 @@ except (Exception, psycopg2.Error) as error :
 
 cursor = connection.cursor()
 
+# all people rows
 cursor.execute('select * from People;')
-record = cursor.fetchall()
-print(record)
+people = cursor.fetchall()
+
+# all contact rows 
+cursor.execute('select * from Contact;')
+contact = cursor.fetchall()
 
 # construct graph
-# g = nx.DiGraph()
+g = nx.Graph()
 
-# g.add_edge(1,2)
-# g.add_edge(2,1)
+# add all people
+for row in people:
+    g.add_node(row[0])
 
+# connect all people who have made contact
+for row in contact:
+    g.add_edge(row[0],row[1])
 
-# # draw graph
-# nx.draw_networkx(g,font_color='white')
+# draw graph
+nx.draw_networkx(g,font_color='black')
 
-# plt.savefig('graph.png') # save graph image
+plt.savefig('graph.png') # save graph image
 
 # input = [''] 
 # while input[0] != 'quit' :
