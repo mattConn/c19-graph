@@ -17,5 +17,5 @@ import matplotlib.pyplot as plt
 
 input = ''
 while input != 'quit' :
-    input = sys.stdin.readline()[:-1] # chomp
-    print('INPUT: ',input)
+    # tokenize input
+    input = sys.stdin.readline()[:-1].split() # chomp and split
