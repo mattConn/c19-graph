@@ -1,6 +1,7 @@
 # generate graph image and json
 
 import sys
+import json
 import networkx as nx
 import psycopg2
 import matplotlib.pyplot as plt
@@ -37,6 +38,6 @@ for row in contact:
 nx.draw_networkx(g,font_color='black')
 plt.savefig('graph.png') # save graph image
 
-print(nx.node_link_data(g)) # print graph json
+print(json.dumps(nx.node_link_data(g))) # print graph json
 
 sys.exit(0)
