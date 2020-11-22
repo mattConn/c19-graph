@@ -1,15 +1,16 @@
-#!/usr/bin/python
+# generate graph image and json
 
 import sys
 import networkx as nx
 import psycopg2
 import matplotlib.pyplot as plt
 
+# db connect
 try:
     connection = psycopg2.connect(user = 'root', password = 'root', host = '127.0.0.1', port = '5432', database = 'c19contact')
 except (Exception, psycopg2.Error) as error :
-    print(error)
-    sys.exit()
+    sys.stderr.write(error)
+    sys.exit(1)
 
 cursor = connection.cursor()
 
@@ -34,10 +35,8 @@ for row in contact:
 
 # draw graph
 nx.draw_networkx(g,font_color='black')
-
 plt.savefig('graph.png') # save graph image
 
-# input = [''] 
-# while input[0] != 'quit' :
-#     # tokenize input
-#     input = sys.stdin.readline()[:-1].split() # chomp and split
+print(nx.node_link_data(g)) # print graph json
+
+sys.exit(0)
