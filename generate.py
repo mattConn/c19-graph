@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # db connect
 try:
     connection = psycopg2.connect(user = 'root', password = 'root', host = '127.0.0.1', port = '5432', database = 'c19contact')
-except (Exception, psycopg2.Error) as error :
-    sys.stderr.write(error)
+except (Exception) as error :
+    sys.stderr.write(str(error))
     sys.exit(1)
 
 cursor = connection.cursor()
