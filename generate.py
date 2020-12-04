@@ -28,7 +28,7 @@ g = nx.Graph()
 
 # add all people
 for row in people:
-    g.add_node(row[0])
+    g.add_node(row[0], name=row[1], age=row[2], infected=row[3])
 
 # connect all people who have made contact
 for row in contact:

@@ -1,0 +1,14 @@
+#wrapper {
+    position: relative;
+    font-family: sans-serif;
+}
+
+.node-tooltip {
+    position: absolute;
+    background-color: white;
+}
+
+.node-tooltip p {
+    font-family: sans-serif;
+    margin: 0;
+}

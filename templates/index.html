@@ -11,14 +11,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/style.css">
+        <script src="https://d3js.org/d3.v4.js"></script>
     </head>
     <body>
+    <div id="wrapper">
         <h1>C19 Graph Tracer</h1>
-        <h2>{{test}}</h2>
+        <div id="graph-ctn"></div>
+    </div>
         
-        <script>
-            const data = JSON.parse('{{ data | tojson | safe}}');
-        </script>
         <script src="/static/main.js"></script>
     </body>
 </html>
