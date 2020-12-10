@@ -24,7 +24,7 @@ function click(d)
         $.ajax({
             type: 'POST',
             url: "/connection",
-            data: {list: connection.toLocaleString()}, //passing some input here
+            data: {operation: 'add', data: connection.toLocaleString()}, //passing some input here
             dataType: "text",
             success: function(response){
                 connection = [];
@@ -33,9 +33,8 @@ function click(d)
             
         });
 
-        
-    }
-    
+       
+    } 
 }
 
 d3.json('static/data.json', function (data) {
