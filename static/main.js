@@ -63,6 +63,13 @@ d3.json('static/data.json', function (data) {
             .style('opacity', 0);
     })
 
+    // handle click
+    node.on('click', function(){
+
+        d3.select(this).attr('stroke', 'black').attr('stroke-width','3');
+        console.log(d3.select(this).data()[0].id);
+    })
+
     // display node ID
     const text = svg.selectAll('text')
         .data(data.nodes)
