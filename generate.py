@@ -38,6 +38,6 @@ for row in contact:
 nx.draw_networkx(g,font_color='black')
 plt.savefig('graph.png') # save graph image
 
-print(json.dumps(nx.node_link_data(g))) # print graph json
+print(json.dumps(nx.node_link_data(g), indent=4)) # print graph json
 
 sys.exit(0)

@@ -1,7 +1,9 @@
 // set the dimensions and margins of the graph
+var connection = []
+
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
-    width = 400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 const svg = d3.select('#graph-ctn')
@@ -11,6 +13,30 @@ const svg = d3.select('#graph-ctn')
     .append('g')
     .attr('transform',
         `translate(${margin.left}, ${margin.top})`);
+
+
+        
+function click(d) 
+{
+    connection.push(d.id)
+    if(connection.length == 2) {
+        // send array to python to make new connection
+        $.ajax({
+            type: 'POST',
+            url: "/connection",
+            data: {list: connection.toLocaleString()}, //passing some input here
+            dataType: "text",
+            success: function(response){
+                connection = [];
+                window.location.reload();
+            }
+            
+        });
+
+        
+    }
+    
+}
 
 d3.json('static/data.json', function (data) {
 
@@ -40,7 +66,8 @@ d3.json('static/data.json', function (data) {
     node.on('mouseover', function (d, i) {
         d3.select(this).transition()
             .duration('50')
-            .attr('opacity', '.85');
+            .attr('opacity', '.85')
+            .style("cursor", "pointer");
 
         // display node data, follow mouse
         div.transition()
@@ -52,6 +79,8 @@ d3.json('static/data.json', function (data) {
         .style('top', (d3.event.pageY - 15) + 'px');
 
     })
+
+    node.on("click", click);
 
     node.on('mouseout', function (d, i) {
         d3.select(this).transition()
