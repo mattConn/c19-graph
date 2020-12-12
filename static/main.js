@@ -1,4 +1,5 @@
 import handleNodeClick from './nodeclick.js';
+import handleNodeHover from './nodehover.js';
 
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
@@ -14,9 +15,8 @@ const svg = d3.select('#graph-ctn')
     .attr('transform',
         `translate(${margin.left}, ${margin.top})`);
 
+// load json and init
 d3.json('static/data.json', function (data) {
-    console.log(data);
-
     // init links
     const link = svg
         .selectAll('line')
@@ -25,8 +25,8 @@ d3.json('static/data.json', function (data) {
         .append('line')
         .style('stroke', 'black')
 
-    // display node data
-    const div = d3.select('body').append('div')
+    // tooltip to display node data
+    const tooltip = d3.select('body').append('div')
         .attr('class', 'node-tooltip')
         .style('opacity', 0);
 
@@ -39,34 +39,10 @@ d3.json('static/data.json', function (data) {
         .attr('r', 20)
         .style('fill', '#69b3a2');
 
-    // node hover
-    node.on('mouseover', function (d, i) {
-        d3.select(this).transition()
-            .duration('50')
-            .attr('opacity', '.85');
+    // handle node hover
+    handleNodeHover(node,tooltip);
 
-        // display node data, follow mouse
-        div.transition()
-            .duration(50)
-            .style('opacity', 1);
-
-        div.html(`<p>${d.name}, ${d.age}</p>${d.infected ? '<p>Infected</p>':''}`)
-        .style('left', (d3.event.pageX + 10) + 'px')
-        .style('top', (d3.event.pageY - 15) + 'px');
-
-    })
-
-    node.on('mouseout', function (d, i) {
-        d3.select(this).transition()
-            .duration('50')
-            .attr('opacity', '1');
-
-        div.transition()
-            .duration(50)
-            .style('opacity', 0);
-    })
-
-    // handle click
+    // handle node click
     handleNodeClick(node);
 
     // display node ID
@@ -75,7 +51,7 @@ d3.json('static/data.json', function (data) {
         .enter()
         .append('text');
 
-
+    // graph layout
     const simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink()
             .id(function (d) { return d.id; })
