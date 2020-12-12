@@ -43,7 +43,8 @@ d3.json('static/data.json', function (data) {
     handleNodeHover(node,tooltip);
 
     // handle node click
-    handleNodeClick(node);
+    let coords = null;
+    handleNodeClick(node,svg,coords);
 
     // display node ID
     const text = svg.selectAll('text')
