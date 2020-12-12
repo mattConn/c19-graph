@@ -1,5 +1,5 @@
-import handleNodeClick from './nodeclick.mjs';
-import handleNodeHover from './nodehover.mjs';
+import handleNodeClick from './nodeclick.js';
+import handleNodeHover from './nodehover.js';
 
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
