@@ -1,3 +1,5 @@
+import handleNodeClick from './nodeclick.js';
+
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
     width = 800 - margin.left - margin.right,
@@ -65,13 +67,7 @@ d3.json('static/data.json', function (data) {
     })
 
     // handle click
-    node.on('click', function(){
-        let active = d3.select(this).attr('active');
-
-        d3.select(this).attr('stroke', active == 'true' ? 'none' : 'black').attr('stroke-width','3')
-            .attr('active',active == 'true' ? 'false' : 'true');
-        console.log(d3.select(this).data()[0].id);
-    })
+    handleNodeClick(node);
 
     // display node ID
     const text = svg.selectAll('text')
