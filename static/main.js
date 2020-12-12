@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
-    width = 400 - margin.left - margin.right,
+    width = 800 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -13,6 +13,7 @@ const svg = d3.select('#graph-ctn')
         `translate(${margin.left}, ${margin.top})`);
 
 d3.json('static/data.json', function (data) {
+    console.log(data);
 
     // init links
     const link = svg
@@ -65,8 +66,10 @@ d3.json('static/data.json', function (data) {
 
     // handle click
     node.on('click', function(){
+        let active = d3.select(this).attr('active');
 
-        d3.select(this).attr('stroke', 'black').attr('stroke-width','3');
+        d3.select(this).attr('stroke', active == 'true' ? 'none' : 'black').attr('stroke-width','3')
+            .attr('active',active == 'true' ? 'false' : 'true');
         console.log(d3.select(this).data()[0].id);
     })
 
