@@ -14,7 +14,9 @@ const svg = d3.select('#graph-ctn')
     .attr('height', height)
 
 // load json and init
-d3.json('static/data.json', function(data) {
+d3.json('static/data.json', function (data) {
+
+
     // init links
     const link = svg
         .selectAll('line')
@@ -24,10 +26,6 @@ d3.json('static/data.json', function(data) {
         .style('stroke', 'black')
         .style('stroke-width', '7');
 
-    // tooltip to display node data
-    const tooltip = d3.select('body').append('div')
-        .attr('class', 'node-tooltip')
-        .style('opacity', 0);
 
     // Initialize the nodes
     const node = svg
@@ -38,12 +36,29 @@ d3.json('static/data.json', function(data) {
         .attr('r', 20)
         .style('fill', '#69b3a2');
 
+    // color each edge for infected-adjacent
+    link.each(function (l) {
+        let L = this;
+        node.each(function (n) {
+            if ((n.id == l.source || n.id == l.target) && n.infected)
+                d3.select(L).style('stroke', 'red');
+        })
+    })
+
+
+
+    // tooltip to display node data
+    const tooltip = d3.select('body').append('div')
+        .attr('class', 'node-tooltip')
+        .style('opacity', 0);
+
+
     // handle node hover
-    handleNodeHover(node,tooltip);
+    handleNodeHover(node, tooltip);
 
     // handle node click
     let coords = null;
-    handleNodeClick(node,svg,coords);
+    handleNodeClick(node, svg, coords);
 
     // handle edge hover
     edgeHover(link, svg)
@@ -64,7 +79,7 @@ d3.json('static/data.json', function(data) {
         .force('center', d3.forceCenter(width / 2, height / 2))
         .on('end', ticked);
 
-        simulation.force('forceX', d3.forceX(0))
+    simulation.force('forceX', d3.forceX(0))
         .force('forceY', d3.forceY(0));
 
     // updates nodes positions
