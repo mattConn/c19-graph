@@ -14,8 +14,8 @@ const handleNodeHover = (node,tooltip) => {
             .style('left', (d3.event.pageX + 10) + 'px')
             .style('top', (d3.event.pageY - 15) + 'px')
             .on('click', function() {
-                console.log(d)
                 d.infected = !d.infected
+                tooltip.html(`<p>${d.name}, ${d.age}</p>${d.infected ? '<p>Infected</p>' : ''} <button> Change infected status </button>`)
             })
         
 
