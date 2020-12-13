@@ -2,7 +2,8 @@ const handleNodeHover = (node,tooltip) => {
     node.on('mouseover', function (d, i) {
         d3.select(this).transition()
             .duration('50')
-            .attr('opacity', '.85');
+            .attr('opacity', '.85')
+            .style("cursor", "pointer");
 
         // display node data, follow mouse
         tooltip.transition()

@@ -2,7 +2,6 @@ const handleNodeClick = (node, svg, coords) => {
     node.on('click', function () {
         let active = d3.select(this).attr('active');
 
-
         // two nodes selected, add edge
         if (coords != null) {
             svg.append('line')

@@ -1,5 +1,6 @@
 import handleNodeClick from './nodeclick.js';
 import handleNodeHover from './nodehover.js';
+import edgeHover from './edge-operations.js';
 
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
@@ -24,6 +25,7 @@ d3.json('static/data.json', function (data) {
         .enter()
         .append('line')
         .style('stroke', 'black')
+        .style('stroke-width', '7');
 
     // tooltip to display node data
     const tooltip = d3.select('body').append('div')
@@ -45,6 +47,9 @@ d3.json('static/data.json', function (data) {
     // handle node click
     let coords = null;
     handleNodeClick(node,svg,coords);
+
+    // handle edge hover
+    edgeHover(link, svg, tooltip)
 
     // display node ID
     const text = svg.selectAll('text')
