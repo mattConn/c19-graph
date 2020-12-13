@@ -1,6 +1,7 @@
 import handleNodeClick from './nodeclick.js';
 import handleNodeHover from './nodehover.js';
 import edgeHover from './edge-operations.js';
+import tracePath from './trace-path.js';
 
 // set the dimensions and margins of the graph
 const margin = { top: 10, right: 30, bottom: 30, left: 40 },
@@ -37,13 +38,7 @@ d3.json('static/data.json', function (data) {
         .style('fill', '#69b3a2');
 
     // color each edge for infected-adjacent
-    link.each(function (l) {
-        let L = this;
-        node.each(function (n) {
-            if ((n.id == l.source || n.id == l.target) && n.infected)
-                d3.select(L).style('stroke', 'red');
-        })
-    })
+    tracePath(link,node);
 
 
 
