@@ -17,7 +17,7 @@ const svg = d3.select('#graph-ctn')
         `translate(${margin.left}, ${margin.top})`);
 
 // load json and init
-d3.json('static/data.json', function (data) {
+d3.json('static/data.json', function(data) {
     // init links
     const link = svg
         .selectAll('line')
@@ -49,7 +49,7 @@ d3.json('static/data.json', function (data) {
     handleNodeClick(node,svg,coords);
 
     // handle edge hover
-    edgeHover(link, svg, tooltip)
+    edgeHover(link, svg)
 
     // display node ID
     const text = svg.selectAll('text')

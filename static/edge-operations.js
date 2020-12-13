@@ -1,5 +1,6 @@
-const edgeHover = (link,svg, tooltip) => {
-    link.on('mouseover', function (d, i) {
+const edgeHover = (link,svg) => {
+    link.on('mouseover', function() {
+        console.log(link)
         d3.select(this).transition()
             .duration('50')
             .attr('opacity', '.85')
@@ -9,11 +10,7 @@ const edgeHover = (link,svg, tooltip) => {
     })
 
     link.on('click', function(d){
-        svg.selectAll("line")
-        .filter(function() {
-            return d3.select(this).attr("x1") == d.source.x && d3.select(this).attr("x2") == d.target.x  ; // filter by source and targets x point
-        })
-        .remove();
+        d3.select(this).remove()
     })
 
 }
