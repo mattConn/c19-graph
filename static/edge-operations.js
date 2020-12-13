@@ -1,6 +1,5 @@
 const edgeHover = (link,svg) => {
     link.on('mouseover', function() {
-        console.log(link)
         d3.select(this).transition()
             .duration('50')
             .attr('opacity', '.85')
