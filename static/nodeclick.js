@@ -1,13 +1,13 @@
 import edgeHover from './edge-operations.js';
 
 const handleNodeClick = (node, svg, coords) => {
-    node.on('click', function () {
+    node.on('click', function (n) {
         let active = d3.select(this).attr('active');
 
         // two nodes selected, add edge
         if (coords != null) {
             const link = svg.append('line')
-                .style("stroke", "black")
+                .style("stroke", coords.infected || n.infected ? 'red' : "black")
                 .style('stroke-width', '7')
                 .attr("x1", d3.select(this).attr('cx'))
                 .attr("y1", d3.select(this).attr('cy'))
@@ -30,7 +30,8 @@ const handleNodeClick = (node, svg, coords) => {
             // store coords
             coords = {
                 x: d3.select(this).attr('cx'),
-                y: d3.select(this).attr('cy')
+                y: d3.select(this).attr('cy'),
+                infected: n.infected
             }
         }
 
